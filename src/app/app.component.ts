@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OpenAiService } from './services/open-ai.service';
 import { slideData } from './slidesData';
-import { AlloyDialogConfig, AlloyDialogItem, AlloyDialogService, DefaultButton, DefaultFooterType } from '@keysight/alloy';
+import { AlloyDialogConfig, AlloyDialogItem, AlloyDialogService, DefaultButton, DefaultFooterType, AlloyToastService, ToastNotificationPosition, ToastNotificationSeverity } from '@keysight/alloy';
 import { EditSlideComponent } from './edit-slide/edit-slide.component';
 import { HttpClient } from "@angular/common/http";
 
@@ -11,11 +11,14 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  public position = ToastNotificationPosition['bottom-right'];
+  timeout: number = 3500;
+  allSlidesData = slideData;
   selectedSlideData = slideData[0];
-  constructor(private openAiService: OpenAiService, private alloyDialogService: AlloyDialogService, private http: HttpClient) { }
+  constructor(private openAiService: OpenAiService, private alloyDialogService: AlloyDialogService, private http: HttpClient, private readonly alloyToastService: AlloyToastService) { }
 
   public getFilePath(path: any) {
-    return `assets/architecture/${path.slideName}`
+    return `assets/${this.selectedSlideData.fileName}/${path.slideName}`
   }
 
   public openEditSlideDataDialog(index: number) {
@@ -50,7 +53,25 @@ export class AppComponent {
   public submitFile() {
     this.updateFile(this.selectedSlideData).subscribe(res => {
       console.log("&&&&*&(", res)
+      this.pushSuccessMessage("Your presentation is ready!")
+    }, err => {
+      console.log(err.message, err)
+      if (err.status === 200) {
+        this.pushSuccessMessage("Your presentation is ready!")
+      }
     });
+  }
+
+
+  pushSuccessMessage(message: string) {
+    setTimeout((): void => {
+      this.alloyToastService.pushNotification({
+        content: message,
+        position: this.position,
+        type: ToastNotificationSeverity.success,
+        timeout: this.timeout
+      });
+    }, 100);
   }
 
 

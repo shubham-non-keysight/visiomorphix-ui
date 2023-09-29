@@ -3,15 +3,17 @@
         <h1>Visiomorphix</h1>
     </span>
     <div style="margin-top:50px">
-        <alloy-select placeholder="Select Design">
-            <alloy-option>Architecture</alloy-option>
+        <alloy-select placeholder="Select Design" [(ngModel)]="selectedSlideData">
+            <alloy-option *ngFor="let slideData of allSlidesData"
+                [value]="slideData">{{slideData.fileName}}</alloy-option>
         </alloy-select>
     </div>
     <div style="margin-top:100px">
         <div>
             <alloy-carousel>
                 <alloy-card alloy-carousel-item *ngFor="let slide of selectedSlideData.slideData;let i=index"
-                    icon="alloyIconStatusOkay" [cardTitle]="slide.old_text" [subTitle]="slide.new_text">
+                    icon="alloyIconStatusOkay" [cardTitle]="slide.old_text" [subTitle]="slide.new_text"
+                    [icon]="slide.iconName">
                     <div>
                         <img [src]="getFilePath(slide)" class="slide-img">
                         <span style="margin-top:10px">
@@ -30,3 +32,5 @@
         </div>
     </div>
 </div>
+<alloy-toast [maxActiveToasts]="1" [expandToastHoverDelay]="800">
+</alloy-toast>
