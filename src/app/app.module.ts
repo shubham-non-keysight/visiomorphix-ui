@@ -5,16 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { OpenAiService } from './services/open-ai.service';
-import { AlloyCarouselModule, AlloyCardModule, AlloyButtonModule, AlloySelectModule, AlloyDialogModule, AlloyTextboxModule, AlloyOptionModule, AlloyToastModule } from '@keysight/alloy';
+import { AlloyCarouselModule, AlloyCardModule, AlloyButtonModule, AlloySelectModule, AlloyDialogModule, AlloyTextboxModule, AlloyOptionModule, AlloyToastModule, AlloyIconModule } from '@keysight/alloy';
 import { HttpClientModule } from '@angular/common/http';
 import { EditSlideComponent } from './edit-slide/edit-slide.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { PptSlidesComponent } from './ppt-slides/ppt-slides.component';
+import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
-    EditSlideComponent
+    EditSlideComponent,
+    PptSlidesComponent,
+    WelcomeScreenComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     AlloyOptionModule,
-    AlloyToastModule
+    AlloyToastModule,
+    AlloyIconModule
   ],
   providers: [OpenAiService],
   bootstrap: [AppComponent]
