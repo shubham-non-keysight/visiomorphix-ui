@@ -1,0 +1,37 @@
+<div style="overflow: hidden;">
+    <div class="welcome-container">
+        <div class="welcome-card">
+            <h1>Welcome</h1>
+            <p class="welcome-text">Thank you for visiting our website. We are delighted to have you here!</p>
+        </div>
+        <button alloy standard routerLink="/slides" style="margin: 43px;" class="nav-button">
+            <alloy-label>Navigate to UI</alloy-label>
+        </button>
+        <div class="card">
+
+            <div *ngIf="showAboutContent">
+                <!-- About Content with Image -->
+                <h2>About</h2>
+                <p>
+                    Transforming Ideas into Engaging Videos...
+                </p>
+                <img src="assets/query.png" alt="Project Image">
+            </div>
+            <div *ngIf="!showAboutContent">
+                <video autoplay controls width="400" height="200">
+                    <source src="assets/VisioMorphix_Demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <button alloy standard (click)="toggleAboutContent()" style="margin: 43px;" class="nav-button">
+                Show About
+            </button>
+        </div>
+    </div>
+    <footer>
+        <img src="assets/key.png" alt="" style="float: right;
+    border-radius: 10px;
+    margin: 10px;
+    filter: brightness(50%);">
+    </footer>
+</div>

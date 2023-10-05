@@ -1,0 +1,40 @@
+<div style="margin-left: 50px;text-align: center;">
+    <span>
+        <h1>Visiomorphix</h1>
+    </span>
+
+    <div style="margin-top:50px">
+        <alloy-select placeholder="Select Design" [(ngModel)]="selectedSlideData">
+            <alloy-option *ngFor="let slideData of allSlidesData"
+                [value]="slideData">{{slideData.fileName}}</alloy-option>
+        </alloy-select>
+    </div>
+    <div style="margin-top:100px">
+        <div>
+            <alloy-carousel>
+                <alloy-card alloy-carousel-item *ngFor="let slide of selectedSlideData.slideData;let i=index"
+                    icon="alloyIconStatusOkay" [cardTitle]="slide.old_text" [subTitle]="slide.new_text"
+                    [icon]="slide.iconName">
+                    <div>
+                        <img [src]="getFilePath(slide)" class="slide-img">
+                        <span style="margin-top:10px">
+                            <button alloy soft (click)="openEditSlideDataDialog(i)">
+                                Edit
+                            </button>
+                        </span>
+                    </div>
+                </alloy-card>
+            </alloy-carousel>
+        </div>
+        <div style="text-align: center;margin-top: 100px;">
+            <span>
+                <button alloy hard (click)="submitFile()">Submit</button>
+            </span>
+            <span><button alloy standard routerLink="/" style="margin: 43px;">
+                    <alloy-label> Go Back</alloy-label>
+                </button></span>
+        </div>
+    </div>
+</div>
+<alloy-toast [maxActiveToasts]="1" [expandToastHoverDelay]="800">
+</alloy-toast>
